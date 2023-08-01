@@ -2,6 +2,7 @@
 from rest_framework import serializers
 from django.apps import apps
 
+#depicts Pledges as JSON
 class PledgeSerializer(serializers.ModelSerializer):
 
     #gets all the data from the model
@@ -11,8 +12,13 @@ class PledgeSerializer(serializers.ModelSerializer):
 
 
 class ProjectSerializer(serializers.ModelSerializer):
-
+    #get all the information about the pledges associated with project
+    # pledges = PledgeSerializer(many=True, read_only=True)
     #gets all the data from the model
     class Meta:
         model = apps.get_model('projects.Project') #define model to convert
         fields ='__all__'
+
+
+class ProjectDetailSerializer(ProjectSerializer):
+    pledges = PledgeSerializer(many=True, read_only=True)

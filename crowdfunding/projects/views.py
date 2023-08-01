@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Project, Pledge
-from .serializers import ProjectSerializer, PledgeSerializer
+from .serializers import ProjectSerializer, PledgeSerializer, ProjectDetailSerializer
 from django.http import Http404
 from rest_framework import status
 
@@ -30,7 +30,6 @@ class ProjectList(APIView):
 
 
 class ProjectDetail(APIView):
-
     #returns object from the DB that has matching PK in the request
     def get_object(self, pk):
             # return Project.objects.get(pk=pk)
@@ -42,7 +41,7 @@ class ProjectDetail(APIView):
     #defines GET request for a particular record/ Primary Key
     def get(self, request, pk):
         project = self.get_object(pk)
-        serializer = ProjectSerializer(project)
+        serializer = ProjectDetailSerializer(project)
         return Response(serializer.data)
 
 class PledgeList(APIView):
