@@ -4,7 +4,7 @@ from django.apps import apps
 
 #depicts Pledges as JSON
 class PledgeSerializer(serializers.ModelSerializer):
-
+    supporter = serializers.ReadOnlyField(source="supporter.id")
     #gets all the data from the model
     class Meta:
         model = apps.get_model('projects.Pledge') #define model to convert
