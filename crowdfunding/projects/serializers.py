@@ -12,6 +12,8 @@ class PledgeSerializer(serializers.ModelSerializer):
 
 
 class ProjectSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.id')
+    
     #get all the information about the pledges associated with project
     # pledges = PledgeSerializer(many=True, read_only=True)
     #gets all the data from the model
