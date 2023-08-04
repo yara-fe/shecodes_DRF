@@ -43,6 +43,17 @@ class ProjectDetail(APIView):
         project = self.get_object(pk)
         serializer = ProjectDetailSerializer(project)
         return Response(serializer.data)
+    
+    #defines PUT method - replaces a record within the database, but partial info can be ok
+    def put(self, request, pk):
+        project = self.get_object(pk)
+        serializer = ProjectDetailSerializer(
+            instance=project,
+            data=request.data,
+            partial=True
+        )
+        if serializer.is_valid():
+            serializer.save()
 
 class PledgeList(APIView):
 
