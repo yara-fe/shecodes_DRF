@@ -42,7 +42,9 @@ class ProjectDetail(APIView):
     def get_object(self, pk):
             # return Project.objects.get(pk=pk)
             try:
-                return Project.Objects.get(pk=pk)  #return ID if available
+                project = Project.Objects.get(pk=pk)  #return ID if available
+                self.check_object_permissions(self.request, project)
+                return project            
             except Project.DoesNotExist:
                 raise Http404  #error handling if attempt fails
 
