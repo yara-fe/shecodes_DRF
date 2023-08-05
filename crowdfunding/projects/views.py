@@ -4,6 +4,7 @@ from .models import Project, Pledge
 from .serializers import ProjectSerializer, PledgeSerializer, ProjectDetailSerializer
 from django.http import Http404
 from rest_framework import status, permissions
+from .permissions import IsOwnerOrReadOnly
 
 class ProjectList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -30,6 +31,13 @@ class ProjectList(APIView):
 
 
 class ProjectDetail(APIView):
+    
+    #Checks user permissions
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly,
+        IsOwnerOrReadOnly
+    ]
+    
     #returns object from the DB that has matching PK in the request
     def get_object(self, pk):
             # return Project.objects.get(pk=pk)
